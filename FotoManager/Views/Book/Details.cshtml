@@ -1,0 +1,84 @@
+﻿@model FotoManager.Models.Book
+
+@{
+    ViewData["Title"] = $"Álbum: {Model.Name}";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>
+        <i class="bi bi-folder-fill text-warning"></i>
+        @Model.Name
+    </h2>
+    <a asp-action="Index" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left me-2"></i> Voltar
+    </a>
+</div>
+
+<!-- Informações do Álbum -->
+<div class="card shadow-sm mb-4">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-8">
+                <h5><i class="bi bi-info-circle"></i> Detalhes do Álbum</h5>
+                <dl class="row mt-3">
+                    <dt class="col-sm-3">Descrição</dt>
+                    <dd class="col-sm-9">@(string.IsNullOrEmpty(Model.Description) ? "Sem descrição" : Model.Description)</dd>
+
+                    <dt class="col-sm-3">Fotos</dt>
+                    <dd class="col-sm-9">
+                        <span class="badge bg-primary">@Model.Photos.Count</span>
+                        foto@(Model.Photos.Count != 1 ? "s" : "")
+                    </dd>
+
+                    <dt class="col-sm-3">Criado em</dt>
+                    <dd class="col-sm-9">@Model.CreatedAt.ToString("dd/MM/yyyy")</dd>
+                </dl>
+            </div>
+            <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary me-2">
+                    <i class="bi bi-pencil me-2"></i> Editar
+                </a>
+                <a asp-controller="Photo" asp-action="Create" asp-route-bookId="@Model.Id" class="btn btn-success">
+                    <i class="bi bi-plus-circle me-2"></i> Adicionar Foto
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Galeria de Fotos -->
+@if (Model.Photos.Any())
+{
+    <h4><i class="bi bi-images me-2 text-primary"></i> Fotos do Álbum</h4>
+
+    <div class="photo-grid mt-3">
+        @foreach (var photo in Model.Photos)
+        {
+            <div class="photo-item">
+                <div class="photo-frame @photo.Frame">
+                    <img src="~/uploads/photos/@photo.FileName"
+                         alt="@photo.Title"
+                         class="photo-img @(photo.Filter != null ? "filter-" + photo.Filter : "")" />
+                    <div class="caption text-center p-2">
+                        <strong>@(string.IsNullOrEmpty(photo.Title) ? "Sem título" : photo.Title)</strong><br />
+                        <small class="text-muted">@photo.UploadDate.ToString("dd/MM")</small>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <div class="text-center py-5 bg-light rounded-3">
+        <i class="bi bi-image text-secondary" style="font-size: 3rem;"></i>
+        <h5 class="text-muted mt-3">Nenhuma foto neste álbum</h5>
+        <p class="text-secondary">Use o botão acima para adicionar fotos.</p>
+    </div>
+}
+
+<div class="mt-4 text-center">
+    <a asp-action="Index" class="btn btn-outline-secondary px-4">
+        <i class="bi bi-arrow-left me-2"></i> Voltar para Álbuns
+    </a>
+</div>

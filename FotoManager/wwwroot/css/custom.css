@@ -1,0 +1,116 @@
+﻿/* ==================== */
+/*   Estilos da Galeria  */
+/* ==================== */
+
+.photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.photo-item {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+    .photo-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+.photo-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+}
+
+/* Filtros CSS */
+.filter-grayscale {
+    filter: grayscale(100%);
+}
+
+.filter-sepia {
+    filter: sepia(100%);
+}
+
+.filter-brightness {
+    filter: brightness(1.4);
+}
+
+.filter-contrast {
+    filter: contrast(180%);
+}
+
+.filter-invert {
+    filter: invert(100%);
+}
+
+/* ==================== */
+/*      Molduras         */
+/* ==================== */
+
+.photo-frame {
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.frame-classic {
+    border: 4px solid #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.frame-shadow {
+    border: 2px solid #e0e0e0;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.frame-polaroid {
+    background: white;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    border: 1px solid #ddd;
+}
+
+    .frame-polaroid .photo-img {
+        margin-bottom: 8px;
+    }
+
+    .frame-polaroid .caption {
+        font-size: 0.85rem;
+        color: #555;
+        font-style: italic;
+    }
+
+.frame-vintage-alt {
+    border: 6px solid #d4a574;
+    border-style: double;
+    background: #fdf6ec;
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.18);
+}
+
+.frame-gold {
+    border: 6px solid #d4af37;
+    background: #fff8e1;
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.5), inset 0 0 8px rgba(212, 175, 55, 0.4);
+}
+
+/* Animação suave nos cards */
+.card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+/* Ícones com cor suave */
+.bi {
+    color: #6c757d;
+}

@@ -1,0 +1,58 @@
+﻿@model IEnumerable<FotoManager.Models.Photo>
+
+@{
+    ViewData["Title"] = "Galeria de Fotos";
+}
+
+<link rel="stylesheet" href="~/css/custom.css" />
+
+<div class="container mt-4">
+    <h2>🖼️ Galeria de Fotos</h2>
+
+    <!-- Filtros -->
+    <form method="get" class="mb-4">
+        <div class="row g-3">
+            <div class="col-md-4">
+                <select name="filter" class="form-control" onchange="this.form.submit()">
+                    <option value="">Todos os Filtros/Molduras</option>
+                    <option value="grayscale">Preto e Branco</option>
+                    <option value="sepia">Sépia</option>
+                    <option value="brightness">Brilho</option>
+                    <option value="frame-gold">Moldura Dourada</option>
+                    <option value="frame-polaroid">Polaroid</option>
+                    <option value="frame-vintage">Vintage</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <select name="bookId" class="form-control" onchange="this.form.submit()">
+                    <option value="">Todos os Álbuns</option>
+                    @foreach (var book in ViewBag.Books as List<FotoManager.Models.Book>)
+                    {
+                        <option value="@book.Id">@book.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-4">
+                <a asp-action="Create" class="btn btn-primary">➕ Nova Foto</a>
+            </div>
+        </div>
+    </form>
+
+    <!-- Galeria -->
+    <div class="photo-grid">
+        @foreach (var photo in Model)
+        {
+            <div class="photo-item">
+                <div class="photo-frame @photo.Frame">
+                    <img src="~/uploads/photos/@photo.FileName"
+                         alt="@photo.Title"
+                         class="photo-img @(photo.Filter != null ? "filter-" + photo.Filter : "")" />
+                    <div class="caption text-center p-2">
+                        <strong>@photo.Title</strong><br />
+                        <small>@(photo.Book?.Name ?? "Sem álbum")</small>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

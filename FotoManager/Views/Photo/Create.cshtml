@@ -1,0 +1,52 @@
+﻿@model FotoManager.Models.Photo
+
+@{
+    ViewData["Title"] = "Adicionar Foto";
+}
+
+<h2>Adicionar Nova Foto</h2>
+
+<form asp-action="Create" method="post" enctype="multipart/form-data">
+    <div class="mb-3">
+        <label>Título</label>
+        <input asp-for="Title" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label>Descrição</label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+    </div>
+    <div class="mb-3">
+        <label>Arquivo</label>
+        <input type="file" name="file" class="form-control" required />
+    </div>
+    <div class="mb-3">
+        <label>Filtro CSS</label>
+        <select asp-for="Filter" class="form-control">
+            <option value="">Nenhum</option>
+            <option value="grayscale">Preto e Branco</option>
+            <option value="sepia">Sépia</option>
+            <option value="brightness">Brilho</option>
+            <option value="contrast">Contraste</option>
+            <option value="invert">Inverter</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label>Moldura</label>
+        <select asp-for="Frame" class="form-control">
+            <option value="">Padrão</option>
+            <option value="frame-classic">Clássica</option>
+            <option value="frame-shadow">Sombreada</option>
+            <option value="frame-polaroid">Polaroid</option>
+            <option value="frame-vintage-alt">Vintage</option>
+            <option value="frame-gold">Dourada</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label>Álbum (Book)</label>
+        <select asp-for="BookId" class="form-control" asp-items="@(new SelectList(ViewBag.Books, "Id", "Name"))">
+            <option value="">Sem álbum</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-success">Salvar</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>
